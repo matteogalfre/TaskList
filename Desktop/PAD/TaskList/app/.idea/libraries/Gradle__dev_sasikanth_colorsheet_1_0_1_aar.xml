@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: dev.sasikanth:colorsheet:1.0.1@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/151e15751a8d3ea51db390aaeee9c463/jetified-colorsheet-1.0.1/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/151e15751a8d3ea51db390aaeee9c463/jetified-colorsheet-1.0.1/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/151e15751a8d3ea51db390aaeee9c463/jetified-colorsheet-1.0.1/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/dev.sasikanth/colorsheet/1.0.1/e129962c7029fc2588a1aff81f2fa71e31d6dec9/colorsheet-1.0.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">TaskList</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">TaskList</string>
+    <string name="nav_header_subtitle">---------</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Ajustes</string>
+
+    <string name="menu_home">Todas</string>
+    <string name="delete_task">BORRAR</string>
+    <string name="save_task">GUARDAR</string>
+    <string name="setting">Ajustes</string>
+    <string name="important">Importantes</string>
+    <string name="today">Hoy</string>
+    <string name="calendar">Calendario</string>
+    <string name="hora">HORA:</string>
+    <string name="description">DESCRIPCIÓN:</string>
+    <string name="eliminar_tareas_completadas">Eliminar tareas completadas</string>
+    <string name="nuevaTarea">Nueva tarea</string>
+    <string name="editarTarea">Editar tarea</string>
+    <string name="complete">Completada</string>
+    <string name="categoryDefault">Categoria</string>
+</resources>
