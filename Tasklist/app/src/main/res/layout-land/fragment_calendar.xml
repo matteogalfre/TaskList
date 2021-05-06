@@ -3,18 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
 
     <com.vivekkaushik.datepicker.DatePickerTimeline
         android:id="@+id/datePickerTimeline"
-        android:layout_width="344dp"
-        android:layout_height="86dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="8dp"
+        android:layout_width="641dp"
+        android:layout_height="85dp"
+        android:layout_marginTop="16dp"
         app:dateTextColor="@color/bottleGreen"
         app:dayTextColor="@color/bottleGreen"
         app:layout_constraintEnd_toStartOf="@+id/imageView"
+        app:layout_constraintHorizontal_bias="0.58"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:monthTextColor="@color/bottleGreen">
@@ -23,12 +23,9 @@
 
     <ListView
         android:id="@+id/calendarListView"
-        android:layout_width="369dp"
-        android:layout_height="552dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="718dp"
+        android:layout_height="192dp"
+        android:layout_marginTop="40dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/datePickerTimeline">
@@ -39,12 +36,14 @@
         android:id="@+id/divider"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="16dp"
         android:background="?android:attr/listDivider"
+        app:layout_constraintBottom_toTopOf="@+id/calendarListView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/datePickerTimeline" />
+        app:layout_constraintTop_toBottomOf="@+id/datePickerTimeline"
+        app:layout_constraintVertical_bias="0.256" />
 
     <ImageView
         android:id="@+id/imageView"

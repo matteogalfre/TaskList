@@ -5,12 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:descendantFocusability="blocksDescendants"
-    android:orientation="vertical">
+    android:orientation="horizontal">
 
     <LinearLayout
-        android:id="@+id/info_calendar_task"
-        android:layout_width="366dp"
-        android:layout_height="58dp"
+        android:id="@+id/info_task"
+        android:layout_width="696dp"
+        android:layout_height="78dp"
         android:background="?android:attr/activatedBackgroundIndicator"
         android:clickable="false"
         android:focusable="false"
@@ -18,13 +18,12 @@
         android:padding="6dip"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteY="1dp">
+        app:layout_constraintTop_toTopOf="parent">
 
         <Button
-            android:id="@+id/task_category_calendar_list"
+            android:id="@+id/task_category_list"
             android:layout_width="15dp"
-            android:layout_height="wrap_content"
+            android:layout_height="70dp"
             android:layout_marginEnd="10dp"
             android:layout_marginRight="10dp"
             app:backgroundTint="@color/teal_200"
@@ -33,25 +32,19 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
-            android:layout_width="319dp"
-            android:layout_height="45dp"
+            android:layout_width="471dp"
+            android:layout_height="67dp"
             android:baselineAligned="false"
             android:gravity="left"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1" />
-
-            <TextView
-                android:id="@+id/task_title_calendar_list"
-                android:layout_width="251dp"
-                android:layout_height="wrap_content"
+                android:id="@+id/task_title_list"
+                android:layout_width="434dp"
+                android:layout_height="34dp"
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/imprima"
-                android:text="Note"
+                android:text="Task title"
                 android:textColor="@android:color/black"
                 android:textSize="20sp"
                 app:layout_constraintBottom_toTopOf="@+id/task_date_list"
@@ -62,22 +55,30 @@
                 app:layout_constraintVertical_chainStyle="packed" />
 
             <TextView
-                android:id="@+id/task_hour_calendar_list"
-                android:layout_width="58dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:fontFamily="casual"
-                android:text="Hour"
-                android:textColor="@color/teal_700"
-                android:textSize="20sp"
-                app:layout_constraintBottom_toTopOf="@+id/task_date_list"
-                app:layout_constraintEnd_toStartOf="@+id/task_important_list"
-                app:layout_constraintHorizontal_bias="0.952"
+                android:id="@+id/task_date_list"
+                android:layout_width="433dp"
+                android:layout_height="23dp"
+                android:maxLines="1"
+                android:text="Date/Desc"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_chainStyle="packed" />
+                app:layout_constraintTop_toBottomOf="@+id/task_title_list" />
 
         </LinearLayout>
+
+        <CheckBox
+            android:id="@+id/checkBoxImportant"
+            android:layout_width="85dp"
+            android:layout_height="67dp"
+            android:layout_weight="1"
+            android:button="@drawable/ic_baseline_label_important_24" />
+
+        <CheckBox
+            android:id="@+id/checkBoxFinish"
+            android:layout_width="103dp"
+            android:layout_height="67dp"
+            android:button="@drawable/ic_baseline_done_outline_24" />
 
     </LinearLayout>
 

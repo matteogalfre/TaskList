@@ -6,9 +6,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="0dp"
-    android:backgroundTint="#D3D3D3"
-    android:orientation="vertical"
-    tools:context=".ui.ViewTaskActivity">
+    tools:context=".ui.ViewTaskActivity"
+    android:orientation="horizontal">
+
+    <Spinner
+        android:id="@+id/spinnerCategory2"
+        android:layout_width="251dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="100dp"
+        android:background="#EAEAEA"
+        app:layout_constraintBottom_toTopOf="@+id/task_description_edit"
+        app:layout_constraintStart_toEndOf="@+id/task_date_edit"
+        app:layout_constraintTop_toBottomOf="@+id/task_title_edit"
+        app:layout_constraintVertical_bias="0.213" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_edit"
@@ -22,51 +32,26 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/task_title_edit"
-        android:layout_width="368dp"
-        android:layout_height="46dp"
-        android:layout_marginStart="14dp"
-        android:layout_marginTop="20dp"
-        android:fontFamily="@font/imprima"
-        android:hint="Tarea"
-        android:lines="1"
-        android:maxLines="10"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.171"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar_edit" />
-
-    <EditText
         android:id="@+id/task_description_edit"
-        android:layout_width="382dp"
-        android:layout_height="79dp"
-        android:layout_marginStart="14dp"
+        android:layout_width="682dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
         android:fontFamily="@font/imprima"
         android:hint="Agregar nota..."
         android:lines="3"
         android:maxLines="10"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.38"
+        app:layout_constraintHorizontal_bias="0.39"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/task_hour_edit" />
-
-    <ImageView
-        android:id="@+id/imageViewCalendar"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="14dp"
-        android:layout_marginTop="20dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/task_title_edit"
-        app:srcCompat="@drawable/ic_baseline_today_24" />
 
     <EditText
         android:id="@+id/task_hour_edit"
         android:layout_width="64dp"
         android:layout_height="40dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="4dp"
         android:ems="10"
         android:hint="00:00"
         android:inputType="date"
@@ -77,35 +62,47 @@
         android:id="@+id/imageViewHour"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_marginStart="14dp"
+        android:layout_marginStart="44dp"
         android:layout_marginTop="4dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageViewCalendar"
         app:srcCompat="@drawable/ic_baseline_more_time_24" />
 
     <EditText
+        android:id="@+id/task_title_edit"
+        android:layout_width="682dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/imprima"
+        android:hint="Tarea"
+        android:lines="1"
+        android:maxLines="10"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.39"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_edit" />
+
+    <EditText
         android:id="@+id/task_date_edit"
         android:layout_width="105dp"
         android:layout_height="39dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="16dp"
         android:ems="10"
         android:hint="00/00/00"
         android:inputType="date"
         app:layout_constraintStart_toEndOf="@+id/imageViewCalendar"
         app:layout_constraintTop_toBottomOf="@+id/task_title_edit" />
 
-    <Spinner
-        android:id="@+id/spinnerCategory"
-        android:layout_width="200dp"
-        android:layout_height="39dp"
-        android:layout_marginStart="16dp"
-        android:background="#EAEAEA"
-        android:scrollbarSize="8dp"
-        android:spinnerMode="dropdown"
-        app:layout_constraintBottom_toTopOf="@+id/task_description_edit"
-        app:layout_constraintStart_toEndOf="@+id/task_date_edit"
+    <ImageView
+        android:id="@+id/imageViewCalendar"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="12dp"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/task_title_edit"
-        app:layout_constraintVertical_bias="0.238" />
+        app:srcCompat="@drawable/ic_baseline_today_24" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

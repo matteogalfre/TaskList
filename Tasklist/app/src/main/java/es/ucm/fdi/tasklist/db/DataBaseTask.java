@@ -1,9 +1,7 @@
 package es.ucm.fdi.tasklist.db;
 
-import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -14,23 +12,16 @@ import java.util.Locale;
 public class DataBaseTask extends SQLiteOpenHelper {
 
 
-    private static final String TASK_TABLE_CREATE = "CREATE TABLE IF NOT EXISTS tasks(id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, description TEXT, date TEXT, fin INTEGER, important INTEGER, hora TEXT)";
-    private static final String DB_NAME = "task.sqlite";
+    private static final String TASK_TABLE_CREATE = "CREATE TABLE IF NOT EXISTS tasks(id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, description TEXT, date TEXT, fin INTEGER, important INTEGER, hora TEXT, color INTEGER, type TEXT)";
+    private static final String DB_TASK_NAME = "task.sqlite";
     private static final int DB_VERSION = 1;
+
+    private static final String  CATEGORY_TABLE_CREATE = "CREATE TABLE IF NOT EXISTS category(name TEXT PRIMARY KEY, color INTEGER)";
 
     private static DataBaseTask INSTANCE;
 
-    final Calendar calendario = Calendar.getInstance();
-
-    int anio = calendario.get(Calendar.YEAR);
-    int mes = calendario.get(Calendar.MONTH);
-    int dia = calendario.get(Calendar.DAY_OF_MONTH);
-
-    int hour = calendario.get(Calendar.HOUR);
-    int min = calendario.get(Calendar.MINUTE);
-
     private DataBaseTask(Context context) {
-        super(context, DB_NAME, null, DB_VERSION);
+        super(context, DB_TASK_NAME, null, DB_VERSION);
     }
 
     private ArrayList<ObserverDao> observers = new ArrayList<ObserverDao>();
@@ -55,14 +46,15 @@ public class DataBaseTask extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(TASK_TABLE_CREATE);
+        db.execSQL(CATEGORY_TABLE_CREATE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        notifyObservers();
+
     }
 
-    public void addItem(TaskDetail td, SQLiteDatabase db) {
+    public long addTaskItem(TaskDetail td, SQLiteDatabase db) {
         ContentValues contentValues = new ContentValues();
         contentValues.put("title", td.getTitle().isEmpty()? null:td.getTitle());
         contentValues.put("description", td.getDesc().isEmpty()? null:td.getDesc());
@@ -70,12 +62,30 @@ public class DataBaseTask extends SQLiteOpenHelper {
         contentValues.put("hora", td.getHora().isEmpty()? null:td.getHora());
         contentValues.put("fin", td.getFin()? 1:0);
         contentValues.put("important", td.getImp()? 1:0);
+        contentValues.put("color", td.getColor());
+        contentValues.put("type", td.getType().isEmpty()? null:td.getType());
 
-        db.insert("tasks", null, contentValues);
-        notifyObservers();
+        long i = db.insert("tasks", null, contentValues);
+
+        return i;
     }
 
-    public void updateItem(TaskDetail td, SQLiteDatabase db) {
+    public long addCategoryItem(String name, int color, SQLiteDatabase db) {
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("name", name.isEmpty()? null:name);
+        contentValues.put("color", color);
+
+        long i = db.insert("category", null, contentValues);
+        return i;
+    }
+
+    public void deleteCatgoryItem(String name, int color, SQLiteDatabase db) {
+        String whereClause = "name=?";
+        String whereArgs[] = {name};
+        db.delete("category", whereClause, whereArgs);
+    }
+
+    public void updateTaskItem(TaskDetail td, SQLiteDatabase db) {
         ContentValues contentValues = new ContentValues();
         contentValues.put("title", td.getTitle().isEmpty()? null:td.getTitle());
         contentValues.put("description", td.getDesc().isEmpty()? null:td.getDesc());
@@ -83,26 +93,26 @@ public class DataBaseTask extends SQLiteOpenHelper {
         contentValues.put("hora", td.getHora().isEmpty()? null:td.getHora());
         contentValues.put("fin", td.getFin()? 1:0);
         contentValues.put("important", td.getImp()? 1:0);
+        contentValues.put("color", td.getColor());
+        contentValues.put("type", td.getType().isEmpty()? null:td.getType());
 
         String whereClause = "id=?";
         String whereArgs[] = {String.valueOf(td.getId())};
         db.update("tasks", contentValues, whereClause, whereArgs);
-        notifyObservers();
     }
 
-    public void deleteItem(TaskDetail td, SQLiteDatabase db) {
+    public void deleteTaskItem(TaskDetail td, SQLiteDatabase db) {
         String whereClause = "id=?";
         String whereArgs[] = {String.valueOf(td.getId())};
         db.delete("tasks", whereClause, whereArgs);
-        notifyObservers();
     }
 
     public String getFormatDate(int dia, int mes, int anio){
-        return String.format(Locale.getDefault(), "%02d/%02d/%02d", dia, mes+1, anio);
+        return String.format(Locale.getDefault(), "%02d/%02d/%02d", dia, mes, anio);
     }
 
     public String getDate(){
-        return getFormatDate(dia, mes, anio);
+        return getFormatDate(getDia(), getMes(), getAnio());
     }
 
     public String getHourAndMin(){
@@ -114,25 +124,23 @@ public class DataBaseTask extends SQLiteOpenHelper {
     }
 
     public int getAnio() {
-        return anio;
+        return Calendar.getInstance().get(Calendar.YEAR);
     }
 
     public int getMes() {
-        return mes;
+        return Calendar.getInstance().get(Calendar.MONTH)+1;
     }
 
     public int getDia() {
-        return dia;
+        return Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
     }
 
     public int getHour() {
-        hour = calendario.get(Calendar.HOUR_OF_DAY);
-        return hour;
+        return Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
     }
 
     public int getMin() {
-        min = calendario.get(Calendar.MINUTE);
-        return min;
+         return Calendar.getInstance().get(Calendar.MINUTE);
     }
 
 }

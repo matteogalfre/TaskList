@@ -20,4 +20,5 @@
     <string name="nuevaTarea">Nueva tarea</string>
     <string name="editarTarea">Editar tarea</string>
     <string name="complete">Completada</string>
+    <string name="categoryDefault">Categoria</string>
 </resources>

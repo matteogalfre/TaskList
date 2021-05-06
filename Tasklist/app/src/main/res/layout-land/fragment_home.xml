@@ -7,20 +7,17 @@
     android:layout_height="match_parent"
     android:background="#59C8FFC8"
     tools:context=".ui.home.HomeFragment"
-    android:orientation="vertical">
+    android:orientation="horizontal">
 
     <ListView
         android:id="@+id/listTaskView"
-        android:layout_width="404dp"
-        android:layout_height="636dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="4dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="712dp"
+        android:layout_height="309dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.454"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.163">
+        app:layout_constraintTop_toTopOf="parent">
 
     </ListView>
 
@@ -29,9 +26,9 @@
         android:layout_width="155dp"
         android:layout_height="216dp"
         android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/listTaskView"
+        app:layout_constraintEnd_toEndOf="@+id/listTaskView"
+        app:layout_constraintStart_toStartOf="@+id/listTaskView"
+        app:layout_constraintTop_toTopOf="@+id/listTaskView"
         app:srcCompat="@drawable/ic_baseline_done_all_24" />
 </androidx.constraintlayout.widget.ConstraintLayout>

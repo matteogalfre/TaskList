@@ -31,13 +31,15 @@ public class TaskTodayListAdapter extends ArrayAdapter<TaskDetail> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        int id = getItem(position).getId();
+        long id = getItem(position).getId();
         String title = getItem(position).getTitle();
         String desc = getItem(position).getDesc();
         String date = getItem(position).getDate();
         boolean fin = getItem(position).getFin();
         boolean imp = getItem(position).getImp();
         String hour = getItem(position).getHora();
+        int color = getItem(position).getColor();
+        String type = getItem(position).getType();
 
         LayoutInflater inflater = LayoutInflater.from(mContext);
         convertView = inflater.inflate(R.layout.list_item_note,null);
@@ -56,21 +58,25 @@ public class TaskTodayListAdapter extends ArrayAdapter<TaskDetail> {
         task_fin.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                DataBaseTask.getInstance(getContext()).updateItem(new TaskDetail(id, title, desc, date, buttonView.isChecked(), imp, hour),DataBaseTask.getInstance(getContext()).getWritableDatabase());
+                getItem(position).setFin(buttonView.isChecked());
+                notifyDataSetChanged();
+                DataBaseTask.getInstance(getContext()).updateTaskItem(new TaskDetail(id, title, desc, date, buttonView.isChecked(), imp, hour, color, type),DataBaseTask.getInstance(getContext()).getWritableDatabase());
             }
         });
 
         task_imp.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                DataBaseTask.getInstance(getContext()).updateItem(new TaskDetail(id, title, desc, date, fin, buttonView.isChecked(), hour),DataBaseTask.getInstance(getContext()).getWritableDatabase());
+                getItem(position).setImp(buttonView.isChecked());
+                notifyDataSetChanged();
+                DataBaseTask.getInstance(getContext()).updateTaskItem(new TaskDetail(id, title, desc, date, fin, buttonView.isChecked(), hour, color, type),DataBaseTask.getInstance(getContext()).getWritableDatabase());
             }
         });
 
         task_imp.setChecked(imp);
         task_fin.setChecked(fin);
 
-        category.setBackgroundColor(Color.rgb(96, 200, 75));
+        category.setBackgroundColor(color);
 
         convertView.setBackgroundColor(Color.WHITE);
         if(fin) {

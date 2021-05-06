@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,6 +37,7 @@ public class CalendarFragment extends Fragment implements ObserverDao {
     View view;
 
     private ArrayList<TaskDetail> taskList = new ArrayList();
+    private ArrayList<TaskDetail> filterDayTaskList = new ArrayList();
     private TaskListCalendarAdapter arrayAdapter;
     private ListView taskListCalendarView;
 
@@ -47,7 +49,6 @@ public class CalendarFragment extends Fragment implements ObserverDao {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        DataBaseTask.getInstance(getContext()).addObserver(this);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -65,6 +66,7 @@ public class CalendarFragment extends Fragment implements ObserverDao {
         window.setNavigationBarColor(Color.rgb(55, 140, 30));
         window.setStatusBarColor(Color.rgb(55, 140, 30));
 
+        initDataBase();
         return view;
     }
 
@@ -75,7 +77,7 @@ public class CalendarFragment extends Fragment implements ObserverDao {
         taskListCalendarView = view.findViewById(R.id.calendarListView);
         ImageView emptyList = view.findViewById(R.id.emptyList);
         taskListCalendarView.setEmptyView(emptyList);
-        arrayAdapter = new TaskListCalendarAdapter(getContext(), taskList);
+        arrayAdapter = new TaskListCalendarAdapter(getContext(), filterDayTaskList);
         taskListCalendarView.setAdapter(arrayAdapter);
 
         dateSelect = DataBaseTask.getInstance(getContext()).getFormatDate(
@@ -83,11 +85,11 @@ public class CalendarFragment extends Fragment implements ObserverDao {
                 DataBaseTask.getInstance(getContext()).getMes(),
                 DataBaseTask.getInstance(getContext()).getAnio());
 
-        initDataBase();
+        filterList();
 
         DatePickerTimeline datePickerTimeline = view.findViewById(R.id.datePickerTimeline);
         datePickerTimeline.setInitialDate(DataBaseTask.getInstance(getContext()).getAnio(),
-                DataBaseTask.getInstance(getContext()).getMes(),
+                DataBaseTask.getInstance(getContext()).getMes()-1,
                 DataBaseTask.getInstance(getContext()).getDia());
 
         datePickerTimeline.setActiveDate(Calendar.getInstance());
@@ -95,20 +97,32 @@ public class CalendarFragment extends Fragment implements ObserverDao {
         datePickerTimeline.setOnDateSelectedListener(new OnDateSelectedListener() {
             @Override
             public void onDateSelected(int year, int month, int day, int dayOfWeek) {
-                dateSelect = DataBaseTask.getInstance(getContext()).getFormatDate(day, month, year);
-                initDataBase();
+                dateSelect = DataBaseTask.getInstance(getContext()).getFormatDate(day, month+1, year);
+                filterList();
             }
 
             @Override
             public void onDisabledDateSelected(int year, int month, int day, int dayOfWeek, boolean isDisabled) {
-                // Do Something
+                //Do Something
             }
         });
+
+        FloatingActionButton fab = getActivity().findViewById(R.id.addNote);
+        fab.setVisibility(View.INVISIBLE);
+    }
+
+    private void filterList() {
+        filterDayTaskList.clear();
+        for(TaskDetail dt : taskList){
+            if(dt.getDate().equals(dateSelect)){
+                filterDayTaskList.add(dt);
+            }
+        }
+        arrayAdapter.notifyDataSetChanged();
     }
 
     public void initDataBase(){
         taskList.clear();
-        arrayAdapter.notifyDataSetChanged();
         DataBaseTask dbHelper = DataBaseTask.getInstance(getContext());
         db = dbHelper.getWritableDatabase();
 
@@ -116,25 +130,25 @@ public class CalendarFragment extends Fragment implements ObserverDao {
             Cursor c = db.rawQuery("SELECT * FROM tasks ORDER BY fin, hora ASC", null);
             if (c.moveToFirst()) {
                 do {
-                    if(dateSelect.equals((c.isNull(3))? "" : c.getString(3))){
-                        updateList(c.getInt(0),
-                                  (c.isNull(1))? "" : c.getString(1),
-                                  (c.isNull(2))? "" : c.getString(2),
-                                  (c.isNull(3))? "" : c.getString(3),
-                                  c.getInt(4) == 0 ? false : true,
-                                  c.getInt(5) == 0 ? false : true,
-                                  (c.isNull(6))? "" : c.getString(6));
-                    }
+                    updateList(c.getInt(0),
+                              (c.isNull(1))? "" : c.getString(1),
+                              (c.isNull(2))? "" : c.getString(2),
+                              (c.isNull(3))? "" : c.getString(3),
+                              c.getInt(4) == 0 ? false : true,
+                              c.getInt(5) == 0 ? false : true,
+                              (c.isNull(6))? "" : c.getString(6),
+                              c.getInt(7),
+                              (c.isNull(8))? "" : c.getString(8));
+
                 } while (c.moveToNext());
             }
         }
     }
 
-    public TaskDetail updateList(int _id,  String _title, String _desc, String _date, boolean _fin, boolean _imp, String _hora){
-        TaskDetail detail = new TaskDetail(_id, _title, _desc, _date, _fin, _imp, _hora);
+    public TaskDetail updateList(int _id,  String _title, String _desc, String _date, boolean _fin, boolean _imp, String _hora, int _color, String _type){
+        TaskDetail detail = new TaskDetail(_id, _title, _desc, _date, _fin, _imp, _hora, _color, _type);
         if (!taskList.contains(detail))
             taskList.add(detail);
-        arrayAdapter.notifyDataSetChanged();
         return detail;
     }
 }

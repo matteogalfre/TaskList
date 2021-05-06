@@ -31,6 +31,7 @@ public class TaskListCalendarAdapter extends ArrayAdapter<TaskDetail> {
         String title = getItem(position).getTitle();
         String hour = getItem(position).getHora();
         boolean fin = getItem(position).getFin();
+        int color = getItem(position).getColor();
 
         LayoutInflater inflater = LayoutInflater.from(mContext);
         convertView = inflater.inflate(R.layout.list_item_calendar_note,null);
@@ -39,12 +40,20 @@ public class TaskListCalendarAdapter extends ArrayAdapter<TaskDetail> {
         TextView task_hour = convertView.findViewById(R.id.task_hour_calendar_list);
         Button category = convertView.findViewById(R.id.task_category_calendar_list);
 
-        category.setBackgroundColor(Color.rgb(96, 200, 75));
+        category.setBackgroundColor(color);
+
+        DataBaseTask db = DataBaseTask.getInstance(getContext());
+        String actualHour = db.getFormatHour(db.getHour(), db.getMin());
+
+        if(hour.compareTo(actualHour) == -1){
+            task_hour.setTextColor(Color.RED);
+        }
 
         convertView.setBackgroundColor(Color.WHITE);
         if(fin) {
             convertView.setBackgroundColor(Color.argb(22, 200, 255, 200));
             task_title.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+            task_hour.setTextColor(Color.GRAY);
         }
 
         task_title.setText(title);
