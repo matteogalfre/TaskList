@@ -4,39 +4,46 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/grassGreen"
+    android:background="@color/gray_light"
     android:orientation="vertical"
-    tools:context=".DrawActivity" >
+    tools:context=".DrawActivity">
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:layout_gravity="center"
-        android:orientation="horizontal" >
+        android:orientation="horizontal">
 
         <ImageButton
             android:id="@+id/new_btn"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
+            android:backgroundTint="@color/gray_light"
             android:contentDescription="@string/start_new"
             android:src="@drawable/new_pic" />
+
         <ImageButton
             android:id="@+id/draw_btn"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
+            android:backgroundTint="@color/gray_light"
             android:contentDescription="@string/brush"
             android:src="@drawable/brush" />
+
         <ImageButton
             android:id="@+id/erase_btn"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
+            android:backgroundTint="@color/gray_light"
             android:contentDescription="@string/erase"
             android:src="@drawable/eraser" />
+
         <ImageButton
             android:id="@+id/save_btn"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:contentDescription="@string/save"
+            android:backgroundTint="@color/gray_light"
             android:src="@drawable/save" />
 
     </LinearLayout>
@@ -51,10 +58,10 @@
 
     <LinearLayout
         android:id="@+id/paint_colors"
-        android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+        android:layout_gravity="center"
+        android:orientation="horizontal">
 
         <ImageButton
             android:layout_width="@dimen/large_brush"
@@ -115,6 +122,7 @@
             android:onClick="paintClicked"
             android:src="@drawable/paint"
             android:tag="#FF009999" />
+
         <ImageButton
             android:layout_width="@dimen/large_brush"
             android:layout_height="@dimen/large_brush"
