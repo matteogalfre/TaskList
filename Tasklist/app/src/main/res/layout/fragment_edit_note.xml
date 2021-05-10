@@ -108,4 +108,25 @@
         app:layout_constraintTop_toBottomOf="@+id/task_title_edit"
         app:layout_constraintVertical_bias="0.238" />
 
+    <Button
+        android:id="@+id/calendar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Añadir a caldendar"
+        android:onClick="addCalendar"
+        app:layout_constraintEnd_toEndOf="@+id/task_description_edit"
+        app:layout_constraintTop_toBottomOf="@+id/task_description_edit" />
+
+    <Button
+        android:id="@+id/draw"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="76dp"
+        android:layout_marginEnd="4dp"
+        android:onClick="startDraw"
+        android:text="Dibujo"
+        app:layout_constraintEnd_toEndOf="@+id/task_description_edit"
+        app:layout_constraintTop_toBottomOf="@+id/task_description_edit" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

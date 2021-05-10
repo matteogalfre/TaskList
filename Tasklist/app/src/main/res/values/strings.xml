@@ -21,4 +21,10 @@
     <string name="editarTarea">Editar tarea</string>
     <string name="complete">Completada</string>
     <string name="categoryDefault">Categoria</string>
+
+    <string name="start_new">Nuevo</string>
+    <string name="brush">Pincel</string>
+    <string name="erase">Borrar</string>
+    <string name="save">Salvar</string>
+    <string name="paint">Pintar</string>
 </resources>

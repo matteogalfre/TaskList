@@ -6,7 +6,7 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.TimePickerDialog;
-import android.content.Context;
+import java.util.Calendar;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.DataSetObserver;
@@ -16,6 +16,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.CalendarContract;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -31,6 +32,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -43,6 +45,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Objects;
 
+import es.ucm.fdi.tasklist.DrawActivity;
 import es.ucm.fdi.tasklist.R;
 import es.ucm.fdi.tasklist.db.Categories;
 import es.ucm.fdi.tasklist.db.DataBaseTask;
@@ -232,6 +235,12 @@ public class ViewTaskActivity extends AppCompatActivity {
         dialogoHora.show();
     }
 
+    public void startDraw(View view) {
+        Intent intent = new Intent(this, DrawActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
     private void dialogDate(){
         DatePickerDialog dialogoFecha = new DatePickerDialog(ViewTaskActivity.this, new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -254,4 +263,40 @@ public class ViewTaskActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
     }
+
+    public void addCalendar(View view) {
+        if (!title.getText().toString().isEmpty() && !date.getText().toString().isEmpty() && !description
+                .getText().toString().isEmpty() && !hora.getText().toString().isEmpty()) {
+
+            String[] d = date.getText().toString().split("/");
+            String[] h = hora.getText().toString().split(":");
+            int Year = Integer.parseInt(d[2]);
+            int Month = Integer.parseInt(d[1]);
+            int Day = Integer.parseInt(d[0]);
+            int Hour = Integer.parseInt(h[0]);
+            int Min = Integer.parseInt(h[1]);
+
+            long startMillis = 0;
+            Calendar beginTime = Calendar.getInstance();
+            beginTime.set(Year, Month, Day, Hour, Min);
+            startMillis = beginTime.getTimeInMillis();
+
+
+            Calendar cal = Calendar.getInstance();
+            Intent intent = new Intent(Intent.ACTION_INSERT);
+            intent.setType("vnd.android.cursor.item/event");
+            intent.putExtra("beginTime", startMillis);
+            intent.putExtra("allDay", false);
+            intent.putExtra("endTime", startMillis+60*60*1000);
+            intent.putExtra("title", title.getText().toString());
+            intent.putExtra("description", description.getText().toString());
+
+            startActivity(intent);
+
+        }else{
+            Toast.makeText(ViewTaskActivity.this, "Por favor, rellene todos los campos",
+                    Toast.LENGTH_SHORT).show();
+        }
+    }
+
 }

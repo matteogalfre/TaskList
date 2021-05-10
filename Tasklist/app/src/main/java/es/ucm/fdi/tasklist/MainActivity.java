@@ -1,13 +1,21 @@
 package es.ucm.fdi.tasklist;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.CalendarContract;
 import android.view.MenuItem;
 import android.view.Menu;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+import android.view.View;
+
 
 import com.google.android.material.navigation.NavigationView;
 
@@ -27,11 +35,22 @@ import es.ucm.fdi.tasklist.db.TaskDetail;
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
+    private EditText tarea;
+    private EditText fecha;
+    private EditText hora;
+    private EditText nota;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+        tarea = (EditText) findViewById(R.id.task_title_edit);
+        fecha = (EditText) findViewById(R.id.task_date_edit);
+        hora = (EditText) findViewById(R.id.task_hour_edit);
+        nota = (EditText) findViewById(R.id.task_description_edit);
+
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -96,4 +115,5 @@ public class MainActivity extends AppCompatActivity {
         super.onConfigurationChanged(newConfig);
 
     }
+
 }
