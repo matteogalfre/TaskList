@@ -130,23 +130,15 @@ public class CalendarFragment extends Fragment implements ObserverDao {
             Cursor c = db.rawQuery("SELECT * FROM tasks ORDER BY fin, hora ASC", null);
             if (c.moveToFirst()) {
                 do {
-                    updateList(c.getInt(0),
-                              (c.isNull(1))? "" : c.getString(1),
-                              (c.isNull(2))? "" : c.getString(2),
-                              (c.isNull(3))? "" : c.getString(3),
-                            c.getInt(4) != 0,
-                            c.getInt(5) != 0,
-                              (c.isNull(6))? "" : c.getString(6),
-                              c.getInt(7),
-                              (c.isNull(8))? "" : c.getString(8));
+                    TaskDetail td = TaskDetail.parseTaskDetail(c);
+                    if(!td.isHidden()) updateList(td);
 
                 } while (c.moveToNext());
             }
         }
     }
 
-    public TaskDetail updateList(int _id,  String _title, String _desc, String _date, boolean _fin, boolean _imp, String _hora, int _color, String _type){
-        TaskDetail detail = new TaskDetail(_id, _title, _desc, _date, _fin, _imp, _hora, _color, _type);
+    public TaskDetail updateList(TaskDetail detail){
         if (!taskList.contains(detail))
             taskList.add(detail);
         return detail;

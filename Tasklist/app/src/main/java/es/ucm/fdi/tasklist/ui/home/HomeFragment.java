@@ -131,7 +131,7 @@ public class HomeFragment extends Fragment implements ObserverDao {
             if (c.moveToFirst()) {
                 do {
                     TaskDetail detail = TaskDetail.parseTaskDetail(c);
-                    updateList(false, detail);
+                    if(!detail.isHidden()) updateList(false, detail);
                 } while (c.moveToNext());
             }
         }

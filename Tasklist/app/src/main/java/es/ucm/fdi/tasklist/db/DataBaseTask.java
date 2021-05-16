@@ -15,7 +15,7 @@ import java.util.Locale;
 public class DataBaseTask extends SQLiteOpenHelper {
 
 
-    private static final String TASK_TABLE_CREATE = "CREATE TABLE IF NOT EXISTS tasks(id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, description TEXT, date TEXT, fin INTEGER, important INTEGER, hora TEXT, color INTEGER, type TEXT)";
+    private static final String TASK_TABLE_CREATE = "CREATE TABLE IF NOT EXISTS tasks(id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, description TEXT, date TEXT, fin INTEGER, important INTEGER, hora TEXT, color INTEGER, type TEXT, hidden INTEGER)";
     private static final String DB_TASK_NAME = "task.sqlite";
     private static final int DB_VERSION = 1;
 
@@ -67,6 +67,7 @@ public class DataBaseTask extends SQLiteOpenHelper {
         contentValues.put("important", td.getImp()? 1:0);
         contentValues.put("color", td.getColor());
         contentValues.put("type", td.getType().isEmpty()? null:td.getType());
+        contentValues.put("hidden", td.isHidden() ? 1 : 0);
 
         long i = db.insert("tasks", null, contentValues);
 
@@ -98,6 +99,7 @@ public class DataBaseTask extends SQLiteOpenHelper {
         contentValues.put("important", td.getImp()? 1:0);
         contentValues.put("color", td.getColor());
         contentValues.put("type", td.getType().isEmpty()? null:td.getType());
+        contentValues.put("hidden", td.isHidden() ? 1 : 0);
 
         String whereClause = "id=?";
         String[] whereArgs = {String.valueOf(td.getId())};

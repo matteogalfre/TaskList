@@ -20,6 +20,7 @@ public class TaskDetail implements Parcelable, Comparable<TaskDetail> {
     private boolean imp;
     private int color;
     private String type;
+    private boolean hidden;
 
     public TaskDetail(long id, String title, String desc, String date, boolean fin,  boolean imp, String hora, int color, String type){
         this.id = id;
@@ -31,6 +32,12 @@ public class TaskDetail implements Parcelable, Comparable<TaskDetail> {
         this.hora = hora;
         this.color = color;
         this.type = type;
+        hidden = false;
+    }
+
+    public TaskDetail(long id, String title, String desc, String date, boolean fin,  boolean imp, String hora, int color, String type, boolean hidden){
+        this(id, title, desc, date, fin, imp, hora, color, type);
+        this.hidden = hidden;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.Q)
@@ -111,6 +118,10 @@ public class TaskDetail implements Parcelable, Comparable<TaskDetail> {
         return imp;
     }
 
+    public boolean isHidden(){return hidden;}
+
+    public void setHidden(boolean hidden){this.hidden = hidden;}
+
     public void setImp(Boolean imp) {
         this.imp = imp;
     }
@@ -187,7 +198,8 @@ public class TaskDetail implements Parcelable, Comparable<TaskDetail> {
         String _hora = (c.isNull(6))? "" : c.getString(6);
         int _color = c.getInt(7);
         String _type = (c.isNull(8))? "" : c.getString(8);
+        boolean _hidden = c.getInt(9) != 0;
 
-        return new TaskDetail(_id, _title, _desc, _date, _fin, _imp, _hora, _color, _type);
+        return new TaskDetail(_id, _title, _desc, _date, _fin, _imp, _hora, _color, _type, _hidden);
     }
 }

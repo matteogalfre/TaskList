@@ -244,13 +244,7 @@ public class ProductivityFragment extends Fragment {
         //plot.setDomainBoundaries(series1.size(), BoundaryMode.FIXED);
         plot.getInnerLimits().setMaxX(series1.size());
         plot.getInnerLimits().setMinX(0);
-        float max = 0;
-        for(Number num : productivitySeries){
-            if(num == null) continue;
-            float fNum = (float)num;
-            if(max < fNum) max = fNum;
-        }
-        plot.setRangeUpperBoundary(max, BoundaryMode.FIXED);
+        plot.setRangeUpperBoundary(100.0f, BoundaryMode.FIXED);
 
         plot.setDomainStep(StepMode.SUBDIVIDE, series1.size()+1);
 
@@ -338,7 +332,7 @@ public class ProductivityFragment extends Fragment {
             int month = (int) selection.second.getX(selection.first) - 1;
             String strMonth = DateFormatSymbols.getInstance(Locale.forLanguageTag("es-ES")).getShortMonths()[month];
             selectionWidget.setBackgroundPaint(p);
-            selectionWidget.setText("Productividad en " + strMonth + ": " + selection.second.getY(selection.first) + "%");
+            selectionWidget.setText("Productividad en " + strMonth + ": " + String.format("%.1f",selection.second.getY(selection.first)) + "%");
         }
         plot.redraw();
     }

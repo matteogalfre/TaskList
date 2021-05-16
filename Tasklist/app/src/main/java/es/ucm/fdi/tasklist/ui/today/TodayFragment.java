@@ -128,7 +128,7 @@ public class TodayFragment extends Fragment implements ObserverDao {
             if (c.moveToFirst()) {
                 do {
                     TaskDetail td = TaskDetail.parseTaskDetail(c);
-                    updateList(false, td);
+                    if(!td.isHidden()) updateList(false, td);
                 } while (c.moveToNext());
             }
         }

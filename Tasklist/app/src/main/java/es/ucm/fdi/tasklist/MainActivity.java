@@ -91,9 +91,10 @@ public class MainActivity extends AppCompatActivity {
                     Cursor c = db.rawQuery("SELECT * FROM tasks ORDER BY fin, date ASC", null);
                     if (c.moveToFirst()) {
                         do {
-                            if(c.getInt(4) != 0){
-                                DataBaseTask.getInstance(getApplicationContext()).
-                                        deleteTaskItem(new TaskDetail(c.getInt(0), null, null, null, false, false, null, -1, null), db);
+                            TaskDetail td = TaskDetail.parseTaskDetail(c);
+                            if(td.getFin()){
+                                td.setHidden(true);
+                                DataBaseTask.getInstance(getApplicationContext()).updateTaskItem(td, db);
                             }
                         } while (c.moveToNext());
                     }
