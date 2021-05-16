@@ -55,6 +55,8 @@ dependencies {
 
     implementation 'com.github.divyanshub024:AndroidDraw:v0.1'
 
+    implementation "com.androidplot:androidplot-core:1.5.7"
+
 }
 task wrapper(type: Wrapper){
     gradleVersion = '4.1.2'

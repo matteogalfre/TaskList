@@ -22,7 +22,7 @@ import es.ucm.fdi.tasklist.db.DataBaseTask;
 import es.ucm.fdi.tasklist.db.TaskDetail;
 
 public class TaskListAdapter extends ArrayAdapter<TaskDetail> {
-    private Context mContext;
+    private final Context mContext;
 
     public TaskListAdapter(Context context , ArrayList<TaskDetail> objects) {
         super(context, -1, objects);
@@ -51,8 +51,8 @@ public class TaskListAdapter extends ArrayAdapter<TaskDetail> {
         CheckBox task_imp = convertView.findViewById(R.id.checkBoxImportant);
         CheckBox task_fin = convertView.findViewById(R.id.checkBoxFinish);
 
-        int states[][] = {{android.R.attr.state_checked}, {}};
-        int colors[] = {Color.rgb(96, 200, 75), Color.GRAY};
+        int[][] states = {{android.R.attr.state_checked}, {}};
+        int[] colors = {Color.rgb(96, 200, 75), Color.GRAY};
         CompoundButtonCompat.setButtonTintList(task_imp, new ColorStateList(states, colors));
         CompoundButtonCompat.setButtonTintList(task_fin, new ColorStateList(states, colors));
 

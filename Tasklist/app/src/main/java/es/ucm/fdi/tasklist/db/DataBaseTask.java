@@ -5,8 +5,11 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 public class DataBaseTask extends SQLiteOpenHelper {
@@ -24,7 +27,7 @@ public class DataBaseTask extends SQLiteOpenHelper {
         super(context, DB_TASK_NAME, null, DB_VERSION);
     }
 
-    private ArrayList<ObserverDao> observers = new ArrayList<ObserverDao>();
+    private final ArrayList<ObserverDao> observers = new ArrayList<ObserverDao>();
 
     public void addObserver(ObserverDao o){
         if(!observers.contains(o)){
@@ -58,7 +61,7 @@ public class DataBaseTask extends SQLiteOpenHelper {
         ContentValues contentValues = new ContentValues();
         contentValues.put("title", td.getTitle().isEmpty()? null:td.getTitle());
         contentValues.put("description", td.getDesc().isEmpty()? null:td.getDesc());
-        contentValues.put("date", td.getDate().isEmpty()? null:td.getDate());
+        contentValues.put("date", td.getDate().isEmpty()? null:normalizeDateString(td.getDate()));
         contentValues.put("hora", td.getHora().isEmpty()? null:td.getHora());
         contentValues.put("fin", td.getFin()? 1:0);
         contentValues.put("important", td.getImp()? 1:0);
@@ -81,7 +84,7 @@ public class DataBaseTask extends SQLiteOpenHelper {
 
     public void deleteCatgoryItem(String name, int color, SQLiteDatabase db) {
         String whereClause = "name=?";
-        String whereArgs[] = {name};
+        String[] whereArgs = {name};
         db.delete("category", whereClause, whereArgs);
     }
 
@@ -89,7 +92,7 @@ public class DataBaseTask extends SQLiteOpenHelper {
         ContentValues contentValues = new ContentValues();
         contentValues.put("title", td.getTitle().isEmpty()? null:td.getTitle());
         contentValues.put("description", td.getDesc().isEmpty()? null:td.getDesc());
-        contentValues.put("date", td.getDate().isEmpty()? null:td.getDate());
+        contentValues.put("date", td.getDate().isEmpty()? null:normalizeDateString(td.getDate()));
         contentValues.put("hora", td.getHora().isEmpty()? null:td.getHora());
         contentValues.put("fin", td.getFin()? 1:0);
         contentValues.put("important", td.getImp()? 1:0);
@@ -97,13 +100,13 @@ public class DataBaseTask extends SQLiteOpenHelper {
         contentValues.put("type", td.getType().isEmpty()? null:td.getType());
 
         String whereClause = "id=?";
-        String whereArgs[] = {String.valueOf(td.getId())};
+        String[] whereArgs = {String.valueOf(td.getId())};
         db.update("tasks", contentValues, whereClause, whereArgs);
     }
 
     public void deleteTaskItem(TaskDetail td, SQLiteDatabase db) {
         String whereClause = "id=?";
-        String whereArgs[] = {String.valueOf(td.getId())};
+        String[] whereArgs = {String.valueOf(td.getId())};
         db.delete("tasks", whereClause, whereArgs);
     }
 
@@ -141,6 +144,26 @@ public class DataBaseTask extends SQLiteOpenHelper {
 
     public int getMin() {
          return Calendar.getInstance().get(Calendar.MINUTE);
+    }
+
+    public static String normalizeDateString(String strDate){
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat sdf1 = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            Date date = sdf1.parse(strDate);
+            return sdf.format(date);
+        } catch (ParseException ignored) {}
+       return strDate;
+    }
+
+    public static String formatDateString(String strDate){
+        SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            Date date = sdf1.parse(strDate);
+            return sdf.format(date);
+        } catch (ParseException ignored) {}
+        return strDate;
     }
 
 }

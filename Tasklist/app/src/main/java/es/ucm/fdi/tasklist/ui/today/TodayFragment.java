@@ -127,29 +127,20 @@ public class TodayFragment extends Fragment implements ObserverDao {
             Cursor c = db.rawQuery("SELECT * FROM tasks ORDER BY fin, date, hora ASC", null);
             if (c.moveToFirst()) {
                 do {
-                    updateList(false,
-                            c.getInt(0),
-                            (c.isNull(1))? "" : c.getString(1),
-                            (c.isNull(2))? "" : c.getString(2),
-                            (c.isNull(3))? "" : c.getString(3),
-                            c.getInt(4) == 0 ? false : true,
-                            c.getInt(5) == 0 ? false : true,
-                            (c.isNull(6))? "" : c.getString(6),
-                            c.getInt(7),
-                            (c.isNull(8))? "" : c.getString(8));
+                    TaskDetail td = TaskDetail.parseTaskDetail(c);
+                    updateList(false, td);
                 } while (c.moveToNext());
             }
         }
     }
 
-    public TaskDetail updateList(boolean remove, long _id,  String _title, String _desc, String _date, boolean _fin, boolean _imp, String _hora, int _color, String _type){
-        TaskDetail detail = new TaskDetail(_id, _title, _desc, _date, _fin, _imp, _hora, _color, _type);
+    public void updateList(boolean remove, TaskDetail detail){
         if(remove) todayTaskList.remove(detail);
         else{
             if (!todayTaskList.contains(detail)) {
                 if(detail.getDate().equals(DataBaseTask.getInstance(getContext()).getDate())){
                     todayTaskList.add(detail);
-                    Log.e("prueba", "Add Task TODAY -> ID:" + _id + " TITLE:" + _title + " DESC:" + _desc + " DATE:" + _date + " FIN:" + _fin + " IMPORTANT:" + _imp+ " HORA:" + _hora);
+                    //Log.e("prueba", "Add Task TODAY -> ID:" + _id + " TITLE:" + _title + " DESC:" + _desc + " DATE:" + _date + " FIN:" + _fin + " IMPORTANT:" + _imp+ " HORA:" + _hora);
 
                 }
             }
@@ -159,7 +150,6 @@ public class TodayFragment extends Fragment implements ObserverDao {
             }
         }
         arrayAdapter.notifyDataSetChanged();
-        return detail;
     }
 
     private void execListener() {
@@ -225,8 +215,10 @@ public class TodayFragment extends Fragment implements ObserverDao {
 
             if (requestCode == 1) {
                 if (resultCode == Activity.RESULT_OK) {
-                    long newId = DataBaseTask.getInstance(getContext()).addTaskItem(new TaskDetail(-1, title, content, date, finish, important, hora, color, type), db);
-                    updateList(false, newId, title, content, date, finish, important, hora, color, type);
+                    TaskDetail td = new TaskDetail(-1, title, content, date, finish, important, hora, color, type);
+                    long newId = DataBaseTask.getInstance(getContext()).addTaskItem(td, db);
+                    td.setId(newId);
+                    updateList(false, td);
                     Collections.sort(todayTaskList);
                     arrayAdapter.notifyDataSetChanged();
                 }
@@ -234,14 +226,16 @@ public class TodayFragment extends Fragment implements ObserverDao {
             else if (requestCode == 2) {
                 id = data.getExtras().getLong("id");
                 if (resultCode == Activity.RESULT_OK) {
-                    TaskDetail td = updateList(false, id, title, content, date, finish, important, hora, color, type);
+                    TaskDetail td = new TaskDetail(id, title, content, date, finish, important, hora, color, type);
+                    updateList(false, td);
                     Collections.sort(todayTaskList);
                     arrayAdapter.notifyDataSetChanged();
                     DataBaseTask.getInstance(getContext()).updateTaskItem(td, db);
                 }
                 else if (resultCode == Activity.RESULT_CANCELED) {
-                    DataBaseTask.getInstance(getContext()).deleteTaskItem(new TaskDetail(id, title, content, date, finish, important, hora, color, type), db);
-                    updateList(true, id, title, content, date, finish, important, hora, color, type);
+                    TaskDetail td = new TaskDetail(id, title, content, date, finish, important, hora, color, type);
+                    DataBaseTask.getInstance(getContext()).deleteTaskItem(td, db);
+                    updateList(true, td);
                     Collections.sort(todayTaskList);
                     arrayAdapter.notifyDataSetChanged();
                 }

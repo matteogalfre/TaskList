@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_settings, R.id.nav_important, R.id.nav_today, R.id.nav_calendar)
+                R.id.nav_home, R.id.nav_settings, R.id.nav_important, R.id.nav_today, R.id.nav_calendar, R.id.nav_statistics)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
                     Cursor c = db.rawQuery("SELECT * FROM tasks ORDER BY fin, date ASC", null);
                     if (c.moveToFirst()) {
                         do {
-                            if(c.getInt(4) == 0 ? false : true){
+                            if(c.getInt(4) != 0){
                                 DataBaseTask.getInstance(getApplicationContext()).
                                         deleteTaskItem(new TaskDetail(c.getInt(0), null, null, null, false, false, null, -1, null), db);
                             }

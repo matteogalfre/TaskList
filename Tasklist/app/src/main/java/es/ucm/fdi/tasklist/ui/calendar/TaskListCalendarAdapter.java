@@ -19,7 +19,7 @@ import es.ucm.fdi.tasklist.db.DataBaseTask;
 import es.ucm.fdi.tasklist.db.TaskDetail;
 
 public class TaskListCalendarAdapter extends ArrayAdapter<TaskDetail> {
-    private Context mContext;
+    private final Context mContext;
 
     public TaskListCalendarAdapter(Context context , ArrayList<TaskDetail> objects) {
         super(context, -1, objects);

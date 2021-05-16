@@ -1,10 +1,13 @@
 package es.ucm.fdi.tasklist.db;
 
+import android.database.Cursor;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import androidx.annotation.RequiresApi;
+
+import java.text.SimpleDateFormat;
 
 public class TaskDetail implements Parcelable, Comparable<TaskDetail> {
 
@@ -60,7 +63,7 @@ public class TaskDetail implements Parcelable, Comparable<TaskDetail> {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -171,5 +174,20 @@ public class TaskDetail implements Parcelable, Comparable<TaskDetail> {
         else{
             return Boolean.compare(fin, o.fin);
         }
+    }
+
+    public static TaskDetail parseTaskDetail(Cursor c){
+        long _id = c.getInt(0);
+        String _title = (c.isNull(1))? "" : c.getString(1);
+        String _desc = (c.isNull(2))? "" : c.getString(2);
+        String _date = (c.isNull(3))? "" : c.getString(3);
+        _date = DataBaseTask.formatDateString(_date);
+        boolean _fin = c.getInt(4) != 0;
+        boolean _imp = c.getInt(5) != 0;
+        String _hora = (c.isNull(6))? "" : c.getString(6);
+        int _color = c.getInt(7);
+        String _type = (c.isNull(8))? "" : c.getString(8);
+
+        return new TaskDetail(_id, _title, _desc, _date, _fin, _imp, _hora, _color, _type);
     }
 }

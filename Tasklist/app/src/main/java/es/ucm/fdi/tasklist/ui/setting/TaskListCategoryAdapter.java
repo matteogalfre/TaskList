@@ -20,7 +20,7 @@ import es.ucm.fdi.tasklist.db.DataBaseTask;
 import es.ucm.fdi.tasklist.db.TaskDetail;
 
 public class TaskListCategoryAdapter extends ArrayAdapter<Categories> {
-    private Context mContext;
+    private final Context mContext;
 
     public TaskListCategoryAdapter(Context context , ArrayList<Categories> objects) {
         super(context, -1, objects);

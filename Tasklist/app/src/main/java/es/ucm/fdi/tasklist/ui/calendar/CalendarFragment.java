@@ -36,8 +36,8 @@ public class CalendarFragment extends Fragment implements ObserverDao {
 
     View view;
 
-    private ArrayList<TaskDetail> taskList = new ArrayList();
-    private ArrayList<TaskDetail> filterDayTaskList = new ArrayList();
+    private final ArrayList<TaskDetail> taskList = new ArrayList();
+    private final ArrayList<TaskDetail> filterDayTaskList = new ArrayList();
     private TaskListCalendarAdapter arrayAdapter;
     private ListView taskListCalendarView;
 
@@ -134,8 +134,8 @@ public class CalendarFragment extends Fragment implements ObserverDao {
                               (c.isNull(1))? "" : c.getString(1),
                               (c.isNull(2))? "" : c.getString(2),
                               (c.isNull(3))? "" : c.getString(3),
-                              c.getInt(4) == 0 ? false : true,
-                              c.getInt(5) == 0 ? false : true,
+                            c.getInt(4) != 0,
+                            c.getInt(5) != 0,
                               (c.isNull(6))? "" : c.getString(6),
                               c.getInt(7),
                               (c.isNull(8))? "" : c.getString(8));
