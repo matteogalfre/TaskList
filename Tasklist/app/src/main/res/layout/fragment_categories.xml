@@ -61,7 +61,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="15dp"
         android:layout_marginBottom="16dp"
-        android:text="ELIGE COLOR"
+        android:text="COLOR"
         app:backgroundTint="#ACACAC"
         app:layout_constraintBottom_toTopOf="@+id/add_category"
         app:layout_constraintEnd_toEndOf="parent"

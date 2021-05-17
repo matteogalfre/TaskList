@@ -1,5 +1,6 @@
 package es.ucm.fdi.tasklist;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import java.util.UUID;
 import android.provider.MediaStore;
@@ -21,6 +22,8 @@ public class DrawActivity extends AppCompatActivity implements OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setNavigationBarColor(Color.rgb(232, 232, 232));
+        getWindow().setStatusBarColor(Color.rgb(232, 232, 232));
         setContentView(R.layout.activity_draw);
         drawView = (DrawingView)findViewById(R.id.drawing);
         drawBtn = (ImageButton)findViewById(R.id.draw_btn);
