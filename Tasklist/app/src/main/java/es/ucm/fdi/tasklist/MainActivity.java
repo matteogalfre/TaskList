@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.provider.CalendarContract;
 import android.view.MenuItem;
 import android.view.Menu;
@@ -35,22 +36,12 @@ import es.ucm.fdi.tasklist.db.TaskDetail;
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
-    private EditText tarea;
-    private EditText fecha;
-    private EditText hora;
-    private EditText nota;
+    private static final String DB_KEY = "db";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
-        tarea = (EditText) findViewById(R.id.task_title_edit);
-        fecha = (EditText) findViewById(R.id.task_date_edit);
-        hora = (EditText) findViewById(R.id.task_hour_edit);
-        nota = (EditText) findViewById(R.id.task_description_edit);
-
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -61,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_settings, R.id.nav_important, R.id.nav_today, R.id.nav_calendar, R.id.nav_statistics)
+                R.id.nav_home, R.id.nav_category, R.id.nav_important, R.id.nav_today, R.id.nav_calendar, R.id.nav_statistics)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -69,8 +60,11 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navigationView, navController);
 
         //Inicializo la base de datos de categorias con la de defecto.
-        DataBaseTask db = DataBaseTask.getInstance(getApplicationContext());
-        db.addCategoryItem(getString(R.string.categoryDefault), Color.GRAY, db.getWritableDatabase());
+        if(!DataBaseTask.instanceCreated()){
+            DataBaseTask db = DataBaseTask.getInstance(getApplicationContext());
+            if(db.categoryTableIsEmpty(db.getReadableDatabase()))
+                db.addCategoryItem(getString(R.string.categoryDefault), Color.GRAY, db.getWritableDatabase());
+        }
     }
 
     @Override

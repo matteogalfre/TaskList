@@ -12,8 +12,8 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         ap:gridClippingEnabled="false"
-        ap:gridInsetLeft="20dp"
-        ap:gridInsetRight="0dp"
+        ap:gridInsetLeft="30dp"
+        ap:gridInsetRight="5dp"
         ap:title="Productividad" />
 
 </LinearLayout>

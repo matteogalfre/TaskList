@@ -21,18 +21,15 @@
             android:icon="@android:drawable/ic_menu_my_calendar"
             android:title="@string/calendar" />
         <item
+            android:id="@+id/nav_category"
+            android:icon="@drawable/ic_categories"
+            android:title="@string/category" />
+        <item
             android:id="@+id/nav_statistics"
-
             android:icon="@drawable/ic_far_chart_bar"
             android:title="@string/statistics" />
     </group>
 
-    <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_settings"
-            android:icon="@android:drawable/ic_menu_preferences"
-            android:title="@string/setting" />
-    </group>
 
 
 

@@ -10,7 +10,7 @@
     <string name="menu_home">Todas</string>
     <string name="delete_task">BORRAR</string>
     <string name="save_task">GUARDAR</string>
-    <string name="setting">Ajustes</string>
+    <string name="category">Categorías</string>
     <string name="important">Importantes</string>
     <string name="today">Hoy</string>
     <string name="calendar">Calendario</string>

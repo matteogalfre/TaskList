@@ -41,9 +41,9 @@
     </fragment>
 
     <fragment
-        android:id="@+id/nav_settings"
-        android:name="es.ucm.fdi.tasklist.ui.setting.SettingFragment"
-        android:label="@string/setting"
-        tools:layout="@layout/fragment_setting" />
+        android:id="@+id/nav_category"
+        android:name="es.ucm.fdi.tasklist.ui.category.CategoriesFragment"
+        android:label="@string/category"
+        tools:layout="@layout/fragment_categories" />
 
 </navigation>

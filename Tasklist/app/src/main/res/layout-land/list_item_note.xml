@@ -9,7 +9,7 @@
 
     <LinearLayout
         android:id="@+id/info_task"
-        android:layout_width="696dp"
+        android:layout_width="match_parent"
         android:layout_height="78dp"
         android:background="?android:attr/activatedBackgroundIndicator"
         android:clickable="false"
@@ -25,22 +25,22 @@
             android:layout_width="15dp"
             android:layout_height="70dp"
             android:layout_marginEnd="10dp"
-            android:layout_marginRight="10dp"
             app:backgroundTint="@color/teal_200"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/task_title_edit"
             app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
-            android:layout_width="471dp"
+            android:layout_width="0dp"
             android:layout_height="67dp"
+            android:layout_weight="1"
             android:baselineAligned="false"
-            android:gravity="left"
+            android:gravity="start"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/task_title_list"
-                android:layout_width="434dp"
+                android:layout_width="match_parent"
                 android:layout_height="34dp"
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/imprima"
@@ -56,7 +56,7 @@
 
             <TextView
                 android:id="@+id/task_date_list"
-                android:layout_width="433dp"
+                android:layout_width="match_parent"
                 android:layout_height="23dp"
                 android:maxLines="1"
                 android:text="Date/Desc"
@@ -69,14 +69,13 @@
 
         <CheckBox
             android:id="@+id/checkBoxImportant"
-            android:layout_width="85dp"
+            android:layout_width="wrap_content"
             android:layout_height="67dp"
-            android:layout_weight="1"
             android:button="@drawable/ic_baseline_label_important_24" />
 
         <CheckBox
             android:id="@+id/checkBoxFinish"
-            android:layout_width="103dp"
+            android:layout_width="wrap_content"
             android:layout_height="67dp"
             android:button="@drawable/ic_baseline_done_outline_24" />
 

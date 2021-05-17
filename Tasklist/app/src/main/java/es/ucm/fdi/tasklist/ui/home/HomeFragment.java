@@ -8,7 +8,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,33 +29,29 @@ import java.util.Collections;
 
 import es.ucm.fdi.tasklist.R;
 import es.ucm.fdi.tasklist.db.DataBaseTask;
-import es.ucm.fdi.tasklist.db.ObserverDao;
 import es.ucm.fdi.tasklist.db.TaskDetail;
+import es.ucm.fdi.tasklist.ui.TaskListAdapter;
 import es.ucm.fdi.tasklist.ui.ViewTaskActivity;
 
-public class HomeFragment extends Fragment implements ObserverDao {
+public class HomeFragment extends Fragment{
 
-    View view;
-
-    private ArrayList<TaskDetail> taskList = new ArrayList();
+    private ArrayList<TaskDetail> taskList;
     private TaskListAdapter arrayAdapter;
     private ListView taskListView;
 
     SQLiteDatabase db;
 
-    public HomeFragment(){ }
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setRetainInstance(true);
+        //setRetainInstance(true);
 
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_home,container,false);
+        View view = inflater.inflate(R.layout.fragment_home,container,false);
         FloatingActionButton button = getActivity().findViewById(R.id.addNote);
         button.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(96, 200, 75)));
 
@@ -68,6 +63,9 @@ public class HomeFragment extends Fragment implements ObserverDao {
         window.setNavigationBarColor(Color.rgb(55, 140, 30));
         window.setStatusBarColor(Color.rgb(55, 140, 30));
 
+        if(savedInstanceState != null) taskList = savedInstanceState.getParcelableArrayList("taskList");
+        else taskList = new ArrayList<>();
+
         return view;
     }
 
@@ -78,34 +76,16 @@ public class HomeFragment extends Fragment implements ObserverDao {
         ImageView emptyList = view.findViewById(R.id.emptyListHome);
         taskListView.setEmptyView(emptyList);
 
-        arrayAdapter = new TaskListAdapter(getContext(), taskList);
+        arrayAdapter = new TaskListAdapter(getContext(), taskList, TaskListAdapter.COLOR1);
         taskListView.setAdapter(arrayAdapter);
 
         execListener();
-    }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
         if(taskList.isEmpty()){
             initDataBase();
         }
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-    }
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
@@ -113,18 +93,11 @@ public class HomeFragment extends Fragment implements ObserverDao {
         outState.putParcelableArrayList("taskList", taskList);
     }
 
-    @Override
-    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
-        super.onViewStateRestored(savedInstanceState);
-        if(savedInstanceState != null)
-            taskList = savedInstanceState.getParcelableArrayList("taskList");
-    }
-
     public void initDataBase(){
         DataBaseTask dbHelper = DataBaseTask.getInstance(getContext());
         db = dbHelper.getWritableDatabase();
 
-        Log.e("prueba", "Init Database");
+        //Log.e("prueba", "Init Database");
 
         if (db != null) {
             Cursor c = db.rawQuery("SELECT * FROM tasks ORDER BY fin, date ASC", null);

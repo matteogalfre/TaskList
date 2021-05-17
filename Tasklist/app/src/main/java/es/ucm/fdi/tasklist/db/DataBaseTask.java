@@ -2,8 +2,11 @@ package es.ucm.fdi.tasklist.db;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.os.Handler;
+import android.os.HandlerThread;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -23,27 +26,19 @@ public class DataBaseTask extends SQLiteOpenHelper {
 
     private static DataBaseTask INSTANCE;
 
+
     private DataBaseTask(Context context) {
         super(context, DB_TASK_NAME, null, DB_VERSION);
     }
 
-    private final ArrayList<ObserverDao> observers = new ArrayList<ObserverDao>();
 
-    public void addObserver(ObserverDao o){
-        if(!observers.contains(o)){
-            observers.add(o);
-        }
-    }
-
-    public void notifyObservers(){
-        for(ObserverDao o : observers){
-            o.initDataBase();
-        }
-    }
-
-    public static DataBaseTask getInstance(Context context){
+    public static synchronized DataBaseTask getInstance(Context context){
         if(INSTANCE == null) INSTANCE = new DataBaseTask(context);
         return INSTANCE;
+    }
+
+    public static synchronized boolean instanceCreated(){
+        return INSTANCE != null;
     }
 
     @Override
@@ -83,13 +78,19 @@ public class DataBaseTask extends SQLiteOpenHelper {
         return i;
     }
 
+    public boolean categoryTableIsEmpty(SQLiteDatabase db){
+        Cursor c = db.rawQuery("SELECT count(*) FROM category", null);
+        c.moveToFirst();
+        return c.getInt(0) <= 0;
+    }
+
     public void deleteCatgoryItem(String name, int color, SQLiteDatabase db) {
         String whereClause = "name=?";
         String[] whereArgs = {name};
         db.delete("category", whereClause, whereArgs);
     }
 
-    public void updateTaskItem(TaskDetail td, SQLiteDatabase db) {
+    public synchronized void updateTaskItem(TaskDetail td, SQLiteDatabase db) {
         ContentValues contentValues = new ContentValues();
         contentValues.put("title", td.getTitle().isEmpty()? null:td.getTitle());
         contentValues.put("description", td.getDesc().isEmpty()? null:td.getDesc());
@@ -106,7 +107,7 @@ public class DataBaseTask extends SQLiteOpenHelper {
         db.update("tasks", contentValues, whereClause, whereArgs);
     }
 
-    public void deleteTaskItem(TaskDetail td, SQLiteDatabase db) {
+    public synchronized void deleteTaskItem(TaskDetail td, SQLiteDatabase db) {
         String whereClause = "id=?";
         String[] whereArgs = {String.valueOf(td.getId())};
         db.delete("tasks", whereClause, whereArgs);

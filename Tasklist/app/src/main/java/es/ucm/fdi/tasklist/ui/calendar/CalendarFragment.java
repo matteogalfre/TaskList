@@ -6,7 +6,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,10 +28,9 @@ import java.util.Calendar;
 
 import es.ucm.fdi.tasklist.R;
 import es.ucm.fdi.tasklist.db.DataBaseTask;
-import es.ucm.fdi.tasklist.db.ObserverDao;
 import es.ucm.fdi.tasklist.db.TaskDetail;
 
-public class CalendarFragment extends Fragment implements ObserverDao {
+public class CalendarFragment extends Fragment{
 
     View view;
 

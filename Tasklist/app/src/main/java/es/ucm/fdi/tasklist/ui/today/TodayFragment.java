@@ -8,7 +8,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,32 +29,30 @@ import java.util.Collections;
 
 import es.ucm.fdi.tasklist.R;
 import es.ucm.fdi.tasklist.db.DataBaseTask;
-import es.ucm.fdi.tasklist.db.ObserverDao;
 import es.ucm.fdi.tasklist.db.TaskDetail;
+import es.ucm.fdi.tasklist.ui.TaskListAdapter;
 import es.ucm.fdi.tasklist.ui.ViewTaskActivity;
 
-public class TodayFragment extends Fragment implements ObserverDao {
+public class TodayFragment extends Fragment{
 
-    View view;
 
-    private ArrayList<TaskDetail> todayTaskList = new ArrayList();
-    private TaskTodayListAdapter arrayAdapter;
+    private ArrayList<TaskDetail> todayTaskList;
+    private TaskListAdapter arrayAdapter;
     private ListView taskTodayListView;
 
     SQLiteDatabase db;
 
-    public TodayFragment(){ }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setRetainInstance(true);
+        //setRetainInstance(true);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_today,container,false);
+        View view = inflater.inflate(R.layout.fragment_today,container,false);
         FloatingActionButton button = getActivity().findViewById(R.id.addNote);
         button.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(96, 200, 75)));
 
@@ -66,6 +63,10 @@ public class TodayFragment extends Fragment implements ObserverDao {
         Window window = getActivity().getWindow();
         window.setNavigationBarColor(Color.rgb(55, 140, 30));
         window.setStatusBarColor(Color.rgb(55, 140, 30));
+
+        if(savedInstanceState != null) todayTaskList = savedInstanceState.getParcelableArrayList("todayTaskList");
+        else todayTaskList = new ArrayList<>();
+
         return view;
     }
 
@@ -76,52 +77,28 @@ public class TodayFragment extends Fragment implements ObserverDao {
         ImageView emptyList = view.findViewById(R.id.emptyListToday);
         taskTodayListView.setEmptyView(emptyList);
 
-        arrayAdapter = new TaskTodayListAdapter(getContext(), todayTaskList);
+        arrayAdapter = new TaskListAdapter(getContext(), todayTaskList, TaskListAdapter.COLOR1, true);
         taskTodayListView.setAdapter(arrayAdapter);
 
         execListener();
-    }
 
-    @Override
-    public void onStart() {
-        super.onStart();
         if(todayTaskList.isEmpty()){
             initDataBase();
         }
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-    }
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
-        outState.putParcelableArrayList("todayTaskList", todayTaskList);
         super.onSaveInstanceState(outState);
+        outState.putParcelableArrayList("todayTaskList", todayTaskList);
     }
 
-    @Override
-    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
-        if(savedInstanceState != null)
-            todayTaskList = savedInstanceState.getParcelableArrayList("todayTaskList");
-        super.onViewStateRestored(savedInstanceState);
-    }
 
     public void initDataBase(){
         DataBaseTask dbHelper = DataBaseTask.getInstance(getContext());
         db = dbHelper.getWritableDatabase();
-        Log.e("prueba", "Init Database");
+        //Log.e("prueba", "Init Database");
 
         if (db != null) {
             Cursor c = db.rawQuery("SELECT * FROM tasks ORDER BY fin, date, hora ASC", null);

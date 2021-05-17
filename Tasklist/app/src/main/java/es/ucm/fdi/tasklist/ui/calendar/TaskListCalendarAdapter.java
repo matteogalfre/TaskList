@@ -8,15 +8,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
-import java.sql.Date;
 import java.util.ArrayList;
-import java.util.Calendar;
 
 import es.ucm.fdi.tasklist.R;
 import es.ucm.fdi.tasklist.db.DataBaseTask;
 import es.ucm.fdi.tasklist.db.TaskDetail;
+import es.ucm.fdi.tasklist.ui.TaskListAdapter;
 
 public class TaskListCalendarAdapter extends ArrayAdapter<TaskDetail> {
     private final Context mContext;
@@ -33,31 +33,52 @@ public class TaskListCalendarAdapter extends ArrayAdapter<TaskDetail> {
         boolean fin = getItem(position).getFin();
         int color = getItem(position).getColor();
 
-        LayoutInflater inflater = LayoutInflater.from(mContext);
-        convertView = inflater.inflate(R.layout.list_item_calendar_note,null);
+        ViewHolder holder;
 
-        TextView task_title = convertView.findViewById(R.id.task_title_calendar_list);
-        TextView task_hour = convertView.findViewById(R.id.task_hour_calendar_list);
-        Button category = convertView.findViewById(R.id.task_category_calendar_list);
+        if(convertView == null){
+            holder = new ViewHolder();
+            LayoutInflater inflater = LayoutInflater.from(mContext);
+            convertView = inflater.inflate(R.layout.list_item_calendar_note, parent, false);
 
-        category.setBackgroundColor(color);
+            holder.task_title = convertView.findViewById(R.id.task_title_calendar_list);
+            holder.task_hour = convertView.findViewById(R.id.task_hour_calendar_list);
+            holder.category = convertView.findViewById(R.id.task_category_calendar_list);
+
+            convertView.setTag(holder);
+        }
+        else{
+            holder = (ViewHolder) convertView.getTag();
+        }
+
+        holder.category.setBackgroundColor(color);
 
         DataBaseTask db = DataBaseTask.getInstance(getContext());
         String actualHour = db.getFormatHour(db.getHour(), db.getMin());
 
-        if(hour.compareTo(actualHour) == -1){
-            task_hour.setTextColor(Color.RED);
+        if(hour.compareTo(actualHour) < 0){
+            holder.task_hour.setTextColor(Color.RED);
         }
 
-        convertView.setBackgroundColor(Color.WHITE);
+
         if(fin) {
             convertView.setBackgroundColor(Color.argb(22, 200, 255, 200));
-            task_title.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
-            task_hour.setTextColor(Color.GRAY);
+            holder.task_title.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+            holder.task_hour.setTextColor(Color.GRAY);
+        }
+        else{
+            convertView.setBackgroundColor(Color.WHITE);
+            holder.task_title.setPaintFlags(0);
         }
 
-        task_title.setText(title);
-        task_hour.setText(hour);
+        holder.task_title.setText(title);
+        holder.task_hour.setText(hour);
         return convertView;
+    }
+
+
+    private static class ViewHolder{
+        TextView task_title;
+        TextView task_hour;
+        Button category;
     }
 }

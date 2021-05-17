@@ -30,21 +30,18 @@ import java.util.Collections;
 
 import es.ucm.fdi.tasklist.R;
 import es.ucm.fdi.tasklist.db.DataBaseTask;
-import es.ucm.fdi.tasklist.db.ObserverDao;
 import es.ucm.fdi.tasklist.db.TaskDetail;
+import es.ucm.fdi.tasklist.ui.TaskListAdapter;
 import es.ucm.fdi.tasklist.ui.ViewTaskActivity;
 
-public class ImportantFragment extends Fragment implements ObserverDao {
+public class ImportantFragment extends Fragment{
 
-    View view;
-
-    private ArrayList<TaskDetail> importantTaskList = new ArrayList();
-    private TaskImportantListAdapter arrayAdapter;
+    private ArrayList<TaskDetail> importantTaskList;
+    private TaskListAdapter arrayAdapter;
     private ListView taskimportantlistview;
 
     SQLiteDatabase db;
 
-    public ImportantFragment(){ }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -67,6 +64,9 @@ public class ImportantFragment extends Fragment implements ObserverDao {
         window.setNavigationBarColor(Color.rgb(195, 45, 35));
         window.setStatusBarColor(Color.rgb(195, 45, 35));
 
+        if(savedInstanceState != null) importantTaskList = savedInstanceState.getParcelableArrayList("importantTaskList");
+        else importantTaskList = new ArrayList<>();
+
         return inflater.inflate(R.layout.fragment_important,container,false);
     }
 
@@ -77,33 +77,14 @@ public class ImportantFragment extends Fragment implements ObserverDao {
         ImageView emptyList = view.findViewById(R.id.emptyListImportant);
         taskimportantlistview.setEmptyView(emptyList);
 
-        arrayAdapter = new TaskImportantListAdapter(getContext(), importantTaskList);
+        arrayAdapter = new TaskListAdapter(getContext(), importantTaskList, TaskListAdapter.COLOR2);
         taskimportantlistview.setAdapter(arrayAdapter);
 
         execListener();
-    }
 
-    @Override
-    public void onStart() {
-        super.onStart();
         if(importantTaskList.isEmpty()){
             initDataBase();
         }
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
     }
 
     @Override
@@ -113,19 +94,11 @@ public class ImportantFragment extends Fragment implements ObserverDao {
 
     }
 
-    @Override
-    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
-        super.onViewStateRestored(savedInstanceState);
-        if(savedInstanceState != null)
-            importantTaskList = savedInstanceState.getParcelableArrayList("importantTaskList");
-
-    }
 
     public void initDataBase(){
         DataBaseTask dbHelper = DataBaseTask.getInstance(getContext());
         db = dbHelper.getWritableDatabase();
 
-        Log.e("prueba", "Init Database");
 
         if (db != null) {
             Cursor c = db.rawQuery("SELECT * FROM tasks ORDER BY fin, date ASC", null);
