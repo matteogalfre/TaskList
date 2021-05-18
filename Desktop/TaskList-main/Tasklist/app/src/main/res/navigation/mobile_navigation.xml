@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="es.ucm.fdi.tasklist.ui.home.HomeFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_home" >
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_today"
+        android:name="es.ucm.fdi.tasklist.ui.today.TodayFragment"
+        android:label="@string/today"
+        tools:layout="@layout/fragment_today" >
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_important"
+        android:name="es.ucm.fdi.tasklist.ui.important.ImportantFragment"
+        android:label="@string/important"
+        tools:layout="@layout/fragment_important" >
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_calendar"
+        android:name="es.ucm.fdi.tasklist.ui.calendar.CalendarFragment"
+        android:label="@string/calendar"
+        tools:layout="@layout/fragment_calendar" >
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_statistics"
+        android:name="es.ucm.fdi.tasklist.ui.statistics.StatisticsFragment"
+        android:label="@string/statistics"
+        tools:layout="@layout/fragment_statistics" >
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_category"
+        android:name="es.ucm.fdi.tasklist.ui.category.CategoriesFragment"
+        android:label="@string/category"
+        tools:layout="@layout/fragment_categories" />
+
+</navigation>

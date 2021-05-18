@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_today"
+            android:icon="@android:drawable/ic_menu_today"
+            android:title="@string/today" />
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@android:drawable/ic_menu_sort_by_size"
+            android:title="@string/menu_home" />
+        <item
+            android:id="@+id/nav_important"
+            android:icon="@android:drawable/btn_star_big_off"
+            android:title="@string/important" />
+        <item
+            android:id="@+id/nav_calendar"
+            android:icon="@android:drawable/ic_menu_my_calendar"
+            android:title="@string/calendar" />
+        <item
+            android:id="@+id/nav_category"
+            android:icon="@drawable/ic_categories"
+            android:title="@string/category" />
+        <item
+            android:id="@+id/nav_statistics"
+            android:icon="@drawable/ic_far_chart_bar"
+            android:title="@string/statistics" />
+    </group>
+
+
+
+
+</menu>

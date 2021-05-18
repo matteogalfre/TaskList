@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.ViewTaskActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="0dp"
+        android:backgroundTint="#D3D3D3">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#19C8AF"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/task_title_edit"
+            android:layout_width="0dp"
+            android:layout_height="46dp"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="14dp"
+            android:fontFamily="@font/imprima"
+            android:hint="@string/tarea"
+            android:lines="1"
+            android:maxLines="10"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.171"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar_edit" />
+
+        <EditText
+            android:id="@+id/task_description_edit"
+            android:layout_width="0dp"
+            android:layout_height="82dp"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="14dp"
+            android:fontFamily="@font/imprima"
+            android:hint="@string/note"
+            android:lines="3"
+            android:maxLines="10"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.095"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/task_hour_edit" />
+
+        <ImageView
+            android:id="@+id/imageViewCalendar"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/task_title_edit"
+            app:srcCompat="@drawable/ic_baseline_today_24" />
+
+        <EditText
+            android:id="@+id/task_hour_edit"
+            android:layout_width="64dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="8dp"
+            android:ems="10"
+            android:hint="00:00"
+            android:inputType="date"
+            app:layout_constraintStart_toEndOf="@+id/imageViewCalendar"
+            app:layout_constraintTop_toBottomOf="@+id/task_date_edit" />
+
+        <ImageView
+            android:id="@+id/imageViewHour"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="4dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewCalendar"
+            app:srcCompat="@drawable/ic_baseline_more_time_24" />
+
+        <EditText
+            android:id="@+id/task_date_edit"
+            android:layout_width="105dp"
+            android:layout_height="39dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="20dp"
+            android:ems="10"
+            android:hint="00/00/00"
+            android:inputType="date"
+            app:layout_constraintStart_toEndOf="@+id/imageViewCalendar"
+            app:layout_constraintTop_toBottomOf="@+id/task_title_edit" />
+
+        <Spinner
+            android:id="@+id/spinnerCategory"
+            android:layout_width="200dp"
+            android:layout_height="39dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/background_shape"
+            android:backgroundTint="#19C8AF"
+            android:scrollbarSize="8dp"
+            android:spinnerMode="dropdown"
+            app:layout_constraintBottom_toTopOf="@+id/task_description_edit"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/task_date_edit"
+            app:layout_constraintTop_toBottomOf="@+id/task_title_edit"
+            app:layout_constraintVertical_bias="0.238" />
+
+        <Button
+            android:id="@+id/calendar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="#19C8AF"
+            android:onClick="addCalendar"
+            android:text="@string/google_c"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/task_description_edit" />
+
+        <Button
+            android:id="@+id/draw"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:backgroundTint="#19C8AF"
+            android:onClick="startDraw"
+            android:text="@string/dibujo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/calendar"
+            app:layout_constraintTop_toBottomOf="@+id/task_description_edit" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

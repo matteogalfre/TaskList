@@ -1,0 +1,64 @@
+<resources>
+    <string name="app_name">TaskList</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">TaskList</string>
+    <string name="nav_header_subtitle">---------</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Ajustes</string>
+    <string name="new_category">Nueva categoría:</string>
+    <string name="name">Nombre:</string>
+    <string name="color">COLOR:</string>
+    <string name="add">Añadir</string>
+    <string name="cat_list">Lista de categorías:</string>
+    <string name="graf">Tareas completadas</string>
+    <string name="tarea">Tarea</string>
+    <string name="note">Agregar nota...</string>
+    <string name="google_c">Añadir a Google Calendar</string>
+    <string name="dibujo">Dibujo</string>
+    <string name="prod">Productividad</string>
+    <string name="hour">Hora</string>
+    <string name="nota">Nota</string>
+    <string name="c_name">Nombre categoría</string>
+    <string name="t_tarea">Título tarea</string>
+    <string name="d_d">Fecha/Desc</string>
+    <string name="n_dib">Nuevo dibujo</string>
+    <string name="ini_dib">¿Iniciar un nuevo dibujo (perderá el dibujo actual)?</string>
+    <string name="yes">Sí</string>
+    <string name="no">No</string>
+    <string name="g_dib">Guardar dibujo</string>
+    <string name="g_dib2">¿Guardar el dibujo en la Galería del dispositivo?</string>
+    <string name="suc_dib">¡Dibujo guardado en la Galería!</string>
+    <string name="fail_dib">No se ha podido guardar la imagen.</string>
+
+
+
+
+
+
+
+
+
+
+    <string name="menu_home">Todas</string>
+    <string name="delete_task">BORRAR</string>
+    <string name="save_task">GUARDAR</string>
+    <string name="category">Categorías</string>
+    <string name="important">Importantes</string>
+    <string name="today">Hoy</string>
+    <string name="calendar">Calendario</string>
+    <string name="statistics">Estadísticas</string>
+    <string name="hora">HORA:</string>
+    <string name="description">DESCRIPCIÓN:</string>
+    <string name="eliminar_tareas_completadas">Eliminar tareas completadas</string>
+    <string name="nuevaTarea">Nueva tarea</string>
+    <string name="editarTarea">Editar tarea</string>
+    <string name="complete">Completada</string>
+    <string name="categoryDefault">Categoria</string>
+
+    <string name="start_new">Nuevo</string>
+    <string name="brush">Pincel</string>
+    <string name="erase">Borrar</string>
+    <string name="save">Salvar</string>
+    <string name="paint">Pintar</string>
+</resources>
