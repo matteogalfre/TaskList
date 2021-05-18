@@ -47,7 +47,7 @@
                 android:layout_height="34dp"
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/imprima"
-                android:text="Category Name"
+                android:text="@string/c_name"
                 android:textColor="@android:color/black"
                 android:textSize="20sp"
                 app:layout_constraintBottom_toTopOf="@+id/task_date_list"

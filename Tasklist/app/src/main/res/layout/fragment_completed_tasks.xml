@@ -14,6 +14,6 @@
         ap:gridClippingEnabled="false"
         ap:gridInsetLeft="35dp"
         ap:gridInsetRight="15dp"
-        ap:title="Tareas completadas" />
+        ap:title="@string/graf" />
 
 </LinearLayout>

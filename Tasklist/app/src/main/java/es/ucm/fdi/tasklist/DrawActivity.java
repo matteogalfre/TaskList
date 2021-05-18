@@ -77,15 +77,15 @@ public class DrawActivity extends AppCompatActivity implements OnClickListener {
         }
         if(v.getId()==R.id.new_btn){
             AlertDialog.Builder newDialog = new AlertDialog.Builder(this);
-            newDialog.setTitle("Nuevo dibujo");
-            newDialog.setMessage("¿Iniciar un nuevo dibujo (perderá el dibujo actual)?");
-            newDialog.setPositiveButton("Sí", new DialogInterface.OnClickListener(){
+            newDialog.setTitle(getString(R.string.n_dib));
+            newDialog.setMessage(getString(R.string.ini_dib));
+            newDialog.setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener(){
                 public void onClick(DialogInterface dialog, int which){
                     drawView.startNew();
                     dialog.dismiss();
                 }
             });
-            newDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            newDialog.setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     dialog.cancel();
                 }
@@ -94,29 +94,29 @@ public class DrawActivity extends AppCompatActivity implements OnClickListener {
         }
         if(v.getId()==R.id.save_btn){
             AlertDialog.Builder saveDialog = new AlertDialog.Builder(this);
-            saveDialog.setTitle("Guardar dibujo");
-            saveDialog.setMessage("¿Guardar el dibujo en la Galería del dispositivo?");
-            saveDialog.setPositiveButton("Sí", new DialogInterface.OnClickListener(){
+            saveDialog.setTitle(getString(R.string.g_dib));
+            saveDialog.setMessage(getString(R.string.g_dib2));
+            saveDialog.setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener(){
                 public void onClick(DialogInterface dialog, int which){
                     drawView.setDrawingCacheEnabled(true);
                     String imgSaved = MediaStore.Images.Media.insertImage(
                             getContentResolver(), drawView.getDrawingCache(),
-                            UUID.randomUUID().toString()+".png", "dibujo");
+                            UUID.randomUUID().toString()+".png", getString(R.string.dibujo));
                     if(imgSaved!=null){
                         Toast savedToast = Toast.makeText(getApplicationContext(),
-                                "¡Dibujo guardado en la Galería!", Toast.LENGTH_SHORT);
+                                getString(R.string.suc_dib), Toast.LENGTH_SHORT);
                         savedToast.show();
                     }
                     else{
                         Toast unsavedToast = Toast.makeText(getApplicationContext(),
-                                "No se ha podido guardar la imagen.", Toast.LENGTH_SHORT);
+                                getString(R.string.fail_dib), Toast.LENGTH_SHORT);
                         unsavedToast.show();
                     }
                     drawView.destroyDrawingCache();
 
                 }
             });
-            saveDialog.setNegativeButton("No", new DialogInterface.OnClickListener(){
+            saveDialog.setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener(){
                 public void onClick(DialogInterface dialog, int which){
                     dialog.cancel();
                 }

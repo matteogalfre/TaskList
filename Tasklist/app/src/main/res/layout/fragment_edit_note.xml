@@ -35,7 +35,7 @@
             android:layout_marginTop="20dp"
             android:layout_marginEnd="14dp"
             android:fontFamily="@font/imprima"
-            android:hint="Tarea"
+            android:hint="@string/tarea"
             android:lines="1"
             android:maxLines="10"
             app:layout_constraintEnd_toEndOf="parent"
@@ -51,7 +51,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="14dp"
             android:fontFamily="@font/imprima"
-            android:hint="Agregar nota..."
+            android:hint="@string/note"
             android:lines="3"
             android:maxLines="10"
             app:layout_constraintEnd_toEndOf="parent"
@@ -127,7 +127,7 @@
             android:layout_marginTop="16dp"
             android:backgroundTint="#19C8AF"
             android:onClick="addCalendar"
-            android:text="Añadir a Google Calendar"
+            android:text="@string/google_c"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/task_description_edit" />
 
@@ -140,7 +140,7 @@
             android:layout_marginEnd="16dp"
             android:backgroundTint="#19C8AF"
             android:onClick="startDraw"
-            android:text="Dibujo"
+            android:text="@string/dibujo"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/calendar"
             app:layout_constraintTop_toBottomOf="@+id/task_description_edit" />
